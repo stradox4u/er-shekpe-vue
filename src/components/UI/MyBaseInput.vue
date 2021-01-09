@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-row justify-between space-x-4 pb-3">
         <label :for="label">{{ labelString }}</label>
-        <input class="flex-grow pl-3" :type="inputType" :placeholder="placeholderString" :step="stepValue" />
+        <input @input="$emit('update:modelValue', $event.target.value)" class="flex-grow pl-3 focus:outline-none" :type="inputType" :placeholder="placeholderString" :step="stepValue" />
     </div>
 </template>
 
@@ -23,12 +23,17 @@ export default {
         },
         placeholderString: {
             type: String,
-            required: true
+            required: false
         },
         stepValue: {
             type: Number,
             required: false
+        },
+        modelValue: {
+            type: Number || String,
+            required: false
         }
-    }
+    },
+
 }
 </script>
