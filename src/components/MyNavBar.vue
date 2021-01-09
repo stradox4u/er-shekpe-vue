@@ -1,7 +1,7 @@
 <template>
     <nav class="bg-green-900 text-white text-left pl-5 mb-5 flex justify-between">
         <h3>Navigation</h3>
-        <a href="#" class="mr-3 focus:ring">Create New Product</a>    
+        <router-link to="/create" class="mr-3 focus:ring">Create New Product</router-link>    
     </nav>
 </template>
 
