@@ -17,18 +17,20 @@
         <p class="font-sans italic clear-both text-center">In Stock</p>
         <p class="font-sans text-pink-600 italic text-center">Out of Stock</p>
         <div class="flex justify-between mt-3">
-            <my-base-button class="bg-green-900 text-w">Unit(s)</my-base-button>
-            <my-base-button class="bg-green-900 text-w">Carton(s)</my-base-button>
-            <my-base-button class="bg-green-900 text-w">Half Carton</my-base-button>
-        </div>
-        <div class="flex justify-between mt-3">
-            <span class="space-x-0 inline-flex">
-                <p class="mr-3 my-auto">Quantity:</p>
-                <a href="#" class="my-auto focus:ring focus:border-gray-500"><span class="bg-gray-100 p-2 rounded-l">-</span></a>
-                <span class="bg-gray-100 p-2 my-auto">4</span>
-                <a href="#" class="my-auto focus:shadow"><span class="bg-gray-100 p-2 rounded-r">+</span></a>
-            </span>
-            <my-base-button class="flex-grow ml-3">Add To Cart</my-base-button>
+            <form action="#">
+                <span class="space-x-0 inline-flex">
+                    <p class="my-auto">Quantity:</p>
+                    <a href="#" class="my-auto focus:ring focus:border-gray-500 text-xs"><span class="bg-gray-100 p-2 rounded-l">-</span></a>
+                    <span class="bg-gray-100 p-2 my-auto text-xs">4</span>
+                    <a href="#" class="my-auto focus:shadow text-xs"><span class="bg-gray-100 p-2 rounded-r">+</span></a>
+                </span>
+                <select name="unit" id="unit" class="bg-green-900 text-white p-1 rounded focus:bg-gray-500">
+                    <option value="units">Units</option>
+                    <option value="cartons">Cartons</option>
+                    <option value="half-carton">Half Carton</option>
+                </select>
+                <my-base-button class="text-xs ml-2">Add To Cart</my-base-button>
+            </form>
         </div>
     </div>
 </template>
