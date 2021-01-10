@@ -20,7 +20,7 @@ const router = createRouter({
         {path: '/', component: ProductsPage},
         {path: '/cart', component: MyShoppingCart},
         {path: '/create', component: CreateNewProduct},
-        {path: '/edit/product/:id', component: EditProduct},
+        {path: '/edit/:id', component: EditProduct},
     ]
 })
 

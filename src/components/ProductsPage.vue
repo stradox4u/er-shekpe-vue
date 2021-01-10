@@ -1,7 +1,7 @@
 <template>
     <div class="appearance-none">
         <p v-if="isLoading === false && errorMessage !== ''">{{ errorMessage }}</p>
-        <p v-else-if="isLoading" class="font-serif text-3xl">Loading...</p>
+        <p v-else-if="isLoading" class="font-serif text-3xl pl-3">Loading...</p>
         <ul v-else class="grid grid-cols-2">
             <my-item-card @itemToEdit="editProduct(result.id)" v-for="result in results" :key="result.id" :id="result.id" :productImage="result.productImage" :productName="result.productName" :unitPrice="result.unitPrice" :cartonPrice="result.cartonPrice" :halfCartonPrice="result.halfCartonPrice"></my-item-card>
         </ul>
@@ -51,20 +51,11 @@ export default {
         },
         editProduct(object) {
             this.productToEdit = object
-            // console.log(object)
-            // console.log(this.results.find((element) => element.id == object))
-            this.$router.push('/edit/product/' + object)
+            this.$router.push('/edit/' + object)
         }
     },
     mounted() {
         this.loadProducts()
-    },
-    provide() {
-        return {
-            idOfProductToEdit: this.productToEdit,
-            productObject: this.results.find((element) => element.id == this.productToEdit)
-        }
-    }
-    
+    },    
 }
 </script>

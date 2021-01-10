@@ -31,7 +31,7 @@ export default {
         },
         modelValue: {
             required: false
-        }
+        },
     },
 
 }
