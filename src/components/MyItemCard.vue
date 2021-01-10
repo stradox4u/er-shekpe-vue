@@ -1,23 +1,23 @@
 <template>
     <div class="p-3 mx-3 mb-6 bg-gray-100">
         <!-- Product Edit Button -->
-        <my-base-button class="mb-2 shadow">Edit Product</my-base-button>
+        <my-base-button @click="editItem(id)" class="mb-2 shadow">Edit Product</my-base-button>
         <!-- Product Image -->
         <div class="rounded-full">
-            <img src="https://picsum.photos/300/300" alt="Some image" class="shadow w-60 mx-auto rounded-full mb-6">
+            <img :src="productImage" alt="Some image" class="shadow w-60 mx-auto rounded-xl mb-6">
         </div>
         <!-- Product Name -->
-        <h3 class="font-sans font-bold text-center">Yaahu Old Pot</h3>
+        <h3 class="font-sans font-bold text-center">{{ productName }}</h3>
         <hr class="mb-3">
         <!-- Product Details -->
         <div class="inline-flex space-x-4 float-left pb-3">
-            <h4 class="font-sans font-bold text-left pl-4">Unit Price: </h4><p>&#8358;120.00</p>
+            <h4 class="font-sans font-bold text-left pl-4">Unit Price: </h4><p>&#8358;{{ unitPrice }}</p>
         </div>
         <div class="inline-flex space-x-4 float-left pb-3">
-            <h4 class="font-sans font-bold text-left pl-4">Carton Price: </h4><p>&#8358;120.00</p>
+            <h4 class="font-sans font-bold text-left pl-4">Carton Price: </h4><p>&#8358;{{ cartonPrice }}</p>
         </div>
         <div class="inline-flex space-x-4 float-left pb-3">
-            <h4 class="font-sans font-bold text-left pl-4">Half Carton Price: </h4><p>&#8358;120.00</p>
+            <h4 class="font-sans font-bold text-left pl-4">Half Carton Price: </h4><p>&#8358;{{ halfCartonPrice }}</p>
         </div>
         <p class="font-sans italic clear-both text-center">In Stock</p>
         <p class="font-sans text-pink-600 italic text-center">Out of Stock</p>
@@ -43,9 +43,38 @@
 
 <script>
 export default {
-  name: "MyItemCard",
-  components: {
-
-  }
+    name: "MyItemCard",
+    props: {
+        productImage: {
+            type: String,
+            required: true,
+        },
+        productName: {
+            type: String,
+            required: true
+        },
+        unitPrice: {
+            type: Number,
+            required: true
+        },
+        cartonPrice: {
+            type: Number,
+            required: true
+        },
+        halfCartonPrice: {
+            type: Number,
+            required: true
+        },
+        id: {
+            type: String,
+            required: true
+        }
+    },
+    methods: {
+        editItem(id) {
+            this.$emit('itemToEdit', id)
+        }
+    },
+    emits: ['itemToEdit']
 };
 </script>

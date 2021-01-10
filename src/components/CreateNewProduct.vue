@@ -43,8 +43,8 @@ export default {
             } else {
                 this.invalidInput = false
             }
-
-            axios.post('https://teak-blueprint-277401-default-rtdb.europe-west1.firebasedatabase.app/products.json', {
+            const productsURL = process.env.VUE_APP_PRODUCTS_URL
+            axios.post(productsURL, {
                 product_name: this.productName,
                 unit_price: this.unitPrice,
                 carton_price: this.cartonPrice,
