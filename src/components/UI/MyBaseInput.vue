@@ -30,7 +30,6 @@ export default {
             required: false
         },
         modelValue: {
-            type: Number || String,
             required: false
         }
     },

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h2 class="font-sans font-bold text-xl">Create New Product</h2>
-        <upload-image></upload-image>
+        <upload-image @imageDecoded="setImage" :progressPercent="progress"></upload-image>
         <hr class="pb-5">
         <form @submit.prevent="storeInfo">
             <my-base-input v-model="productName" label="product-name" labelString="Product Name: " inputType="text" placeholderString="Enter Product Name Here"></my-base-input>
@@ -29,9 +29,13 @@ export default {
             cartonPrice: 0,
             halfCartonPrice: 0,
             invalidInput: false,
+            image: '',
         }
     },
     methods: {
+        setImage(rawImg) {
+            this.image = rawImg
+        },
         storeInfo() {
             if(this.productName === '' || this.unitPrice === 0 || this.cartonPrice === 0 || this.halfCartonPrice === 0) {
                 this.invalidInput = true
@@ -45,6 +49,7 @@ export default {
                 unit_price: this.unitPrice,
                 carton_price: this.cartonPrice,
                 half_carton_price: this.halfCartonPrice,
+                product_image: this.image
             })
             .then(function(response) {
                 console.log(response)
@@ -53,6 +58,15 @@ export default {
                 console.log(error.message)
             })
             this.$router.push('/')
+        }
+    },
+    computed: {
+        progress() {
+            if(this.image === '') {
+                return 0
+            } else {
+                return 100
+            }
         }
     }
 }

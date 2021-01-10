@@ -2,56 +2,53 @@
     <div>
         <div class="pb-3">
             <label class="pr-3" for="image">Upload Product Image</label>
-            <input type="file" name="image" id="image" ref="imageInput">
+            <input type="file" name="image" accept="image/*" @change="previewImage">
         </div>
         <div class="shadow w-full bg-gray-100">
-            <div class="bg-yellow-500 text-xs leading-none py-1 text-center text-white" :style="{ width: computedWidth }">{{ progressPercent }}%</div>
+            <div class="bg-yellow-500 text-xs leading-none py-1 text-center" :style="{ width: progressPercent + '%' }">{{ progressPercent }}%</div>
         </div>
         <my-base-button class="my-3 mx-auto block" @click="onUpload">Upload</my-base-button>
     </div>
 </template>
 
 <script>
-import firebase from 'firebase'
+// import firebase from 'firebase'
 
 export default {
     name: 'UploadImage',
     data() {
         return {
-            progressPercent: 0,
             imageData: null,
-            picture: null,
         }
     },
+    props: ['progressPercent'],
     methods: {
+        previewImage(event) {
+            this.imageData = event.target.files[0]
+        },
         onUpload() {
-            let file = this.$refs.imageInput.value
-            let storageRef = firebase.storage().ref()
-            console.log(storageRef)
+           const file = this.imageData
+           const reader = new FileReader()
 
-
-            let metadata = {
-                contentType: 'image/jpeg'
-            }
-
-            let uploadTask = storageRef.child('images/' + file.name).put(file, metadata)
-
-            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-            function(snapshot) {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                return progress
-            })
-
-            // console.log(this.$refs.imageInput.value)
-
-            // this.progressPercent = progress
-            console.log('Success!!!')
+           let rawImg
+           reader.onloadend = () => {
+               rawImg = reader.result
+                this.$emit('imageDecoded', rawImg)
+           }
+           reader.readAsDataURL(file)
+           
+           // this.picture = null
+            
+            // const storageRef = firebase.storage().ref(`$(this.imageData.name`).put(this.imageData)
+            // storageRef.on('state_changed', snapshot => {
+            //     this.progressPercent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            // }, error => {console.log(error.message)},
+            // () => {this.progressPercent = 100
+            // storageRef.snapshot.ref.getDownloadURL().then((url) => {
+            //     this.picture = url
+            // })})
         }
     },
-    computed: {
-        computedWidth() {
-            return this.progressPercent + '%'
-        }
-    }
+    emits: ['imageDecoded'],
 }
 </script>
