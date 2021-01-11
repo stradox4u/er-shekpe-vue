@@ -2,26 +2,59 @@
     <div class="container">
         <h2 class="pl-3 font-bold font-sans text-xl">Shopping Cart</h2>
         <ul>
-            <my-cart-item class="mx-3 mt-3 rounded shadow"></my-cart-item>
-            <my-cart-item class="mx-3 mt-3 rounded shadow"></my-cart-item>
-            <my-cart-item class="mx-3 mt-3 rounded shadow"></my-cart-item>
-            <my-cart-item class="mx-3 mt-3 rounded shadow"></my-cart-item>
-            <my-cart-item class="mx-3 mt-3 rounded shadow"></my-cart-item>
+            <my-cart-item v-for="cartContent in cartContents" :key="cartContent.id" :itemImage="cartContent.prodImg" :itemName="cartContent.prodName" :itemUnit="cartContent.unit" :itemQty="cartContent.qty" :itemProdPrice="cartContent.prodPrice" :itemId="cartContent.id" @removeItem="removeItem(cartContent.id)" class="mx-3 mt-3 rounded shadow"></my-cart-item>
         </ul>
         <div class="">
             <h3 class="font-serif font-bold text-lg text-right pr-3">Total:</h3>
-            <p class="font-sans text-xl text-right pr-3">&#8358; 1800.00</p>
+            <p class="font-sans text-xl text-right pr-3"> {{ currencyFormat(parseFloat(totalPrice)) }}</p>
         </div>
-        <my-base-button class="mt-3 mx-auto container shadow mb-5 block">Purchase Now</my-base-button>
+        <my-base-button @click="storePurchase" class="mt-3 mx-auto container shadow mb-5 block">Purchase Now</my-base-button>
     </div>
 </template>
 
 <script>
 import MyCartItem from './UI/MyCartItem.vue'
+import axios from 'axios'
+
 export default {
     name: 'MyShoppingCart',
     components: {
         MyCartItem
+    },
+    props: ['cartContents'],
+    computed: {
+        totalPrice() {
+            let total = 0
+            this.cartContents.forEach((element) => {
+                total += (element.prodPrice * element.qty)
+                return total
+            })
+            return total
+        }
+    },
+    methods: {
+        removeItem(id) {
+            this.$emit('removeItem', id)
+        },
+        storePurchase() {
+            const purchase = {
+                id: new Date().getTime(),
+                purchased_items: this.cartContents,
+                totalPurchasePrice: this.totalPrice
+            }
+            const purchasesURL = process.env.VUE_APP_PURCHASES_URL
+            axios.post(purchasesURL, purchase)
+            .then(function(response) {
+                console.log(response)
+            })
+            .catch(function(error) {
+                console.log(error.message)
+            })
+            this.$router.push('/')
+        },
+        currencyFormat(value) {
+            return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'NGN', minimumFractionDigits: 2, currencyDisplay: 'code' }).format(value)
+        },
     }
 }
 </script>

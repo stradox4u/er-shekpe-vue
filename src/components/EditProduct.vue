@@ -2,9 +2,9 @@
     <div class="container">
         <h2 class="font-sans font-bold text-xl pb-3">Edit {{ product.product_name }}</h2>
         <form @submit.prevent="submitEditedProduct" action="#">
-            <my-base-input v-model="inputUnitPrice" label="unit-price" labelString="Unit Price: " inputType="number" :placeholderString="'&#8358;' + product.unit_price" stepValue="0.01"></my-base-input>
-            <my-base-input v-model="inputCartonPrice" label="carton-price" labelString="Carton Price: " inputType="number" :placeholderString="'&#8358;' + product.carton_price" stepValue="0.01"></my-base-input>
-            <my-base-input v-model="inputHalfCartonPrice" label="half-carton-price" labelString="Half Carton Price: " inputType="number" :placeholderString="'&#8358;' + product.half_carton_price" stepValue="0.01"></my-base-input>
+            <my-base-input v-model="inputUnitPrice" label="unit-price" labelString="Unit Price: " inputType="number" :placeholderString="currencyFormat(product.unit_price)" stepValue="0.01"></my-base-input>
+            <my-base-input v-model="inputCartonPrice" label="carton-price" labelString="Carton Price: " inputType="number" :placeholderString="currencyFormat(product.carton_price)" stepValue="0.01"></my-base-input>
+            <my-base-input v-model="inputHalfCartonPrice" label="half-carton-price" labelString="Half Carton Price: " inputType="number" :placeholderString="currencyFormat(product.half_carton_price)" stepValue="0.01"></my-base-input>
 
             <p v-if="error != ''"> {{ error }} </p>
             <my-base-button class="block shadow mx-auto mb-3 w-full">Submit</my-base-button>
@@ -62,7 +62,10 @@ export default {
                 })
             }
             
-        }
+        },
+        currencyFormat(value) {
+            return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'NGN', minimumFractionDigits: 2, currencyDisplay: 'code' }).format(value)
+        },
     },
     mounted() {
         const urlArray = window.location.href.split('-')

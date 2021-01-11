@@ -1,32 +1,74 @@
 <template>
     <div class="bg-gray-100 p-3 flex flex-row justify-between space-x-2">
-        <img src="https://picsum.photos/300/300" alt="Some image" class="shadow h-28 rounded ml-1">
+        <img :src="itemImage" alt="item picture" class="shadow h-28 rounded ml-1">
         <div>
-            <h3 class="font-sans font-bold">Yaahu Old Pot</h3>
+            <h3 class="font-sans font-bold">{{ itemName }}</h3>
             <p class="italic font-sans">In Stock</p>
             <p class="italic font-sans text-pink-800">Out of Stock</p>
-            <a href="#" class="pt-3">Remove <i class="far fa-trash-alt"></i></a>
+            <a @click="remove" href="#" class="pt-3">Remove <i class="far fa-trash-alt"></i></a>
         </div>
         <div>
-            <p class="font-sans text-lg">Unit: Cartons</p>
+            <p class="font-sans text-lg">Unit: {{ unitName }}</p>
             <span class="space-x-0 inline-flex pt-3">
                 <p class="my-auto">Quantity:</p>
                 <a href="#" class="my-auto focus:ring focus:border-gray-500 text-xs"><span class="bg-gray-100 p-2 rounded-l">-</span></a>
-                <span class="bg-gray-100 p-2 my-auto text-xs">4</span>
+                <span class="bg-gray-100 p-2 my-auto text-xs"> {{ itemQty }} </span>
                 <a href="#" class="my-auto focus:shadow text-xs"><span class="bg-gray-100 p-2 rounded-r">+</span></a>
             </span>
         </div>
         <div>
             <p class="font-sans text-lg">Unit Price:</p>
-            <p class="font-sans text-base font-bold">&#8358; 120.00</p>
-            <p class="font-sans text-sm italic">x 3 pcs</p>
-            <p class="font-sans text-base italic">Subtotal: &#8358; 360.00</p>
+            <p class="font-sans text-base font-bold"> {{ currencyFormat((itemProdPrice)) }}</p>
+            <p class="font-sans text-sm italic">x {{ itemQty }} pcs</p>
+            <p class="font-sans text-base italic">Subtotal:  {{ currencyFormat(subTotal) }}</p>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'MyCartItem'
+    name: 'MyCartItem',
+    props: {
+        itemImage: {
+            type: String,
+            required: true
+        },
+        itemName: {
+            type: String,
+            required: true
+        },
+        itemUnit: {
+            type: String,
+            required: true
+        },
+        itemQty: {
+            type: Number,
+            required: true
+        },
+        itemProdPrice: {
+            type: Number,
+            required: true
+        },
+        itemId: {
+            type: String,
+            required: true
+        }
+    },
+    computed: {
+        subTotal() {
+            return this.itemQty * this.itemProdPrice
+        },
+        unitName() {
+            return this.itemUnit.charAt(0).toUpperCase() + this.itemUnit.slice(1)
+        },
+    },
+    methods: {
+        remove() {
+            this.$emit('removeItem', this.itemId)
+        },
+        currencyFormat(value) {
+            return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'NGN', minimumFractionDigits: 2, currencyDisplay: 'code' }).format(value)
+        },
+    }
 }
 </script>

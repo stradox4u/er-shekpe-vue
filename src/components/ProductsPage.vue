@@ -3,7 +3,7 @@
         <p v-if="isLoading === false && errorMessage !== ''">{{ errorMessage }}</p>
         <p v-else-if="isLoading" class="font-serif text-3xl pl-3">Loading...</p>
         <ul v-else class="grid grid-cols-2">
-            <my-item-card @itemToEdit="editProduct(result.id)" v-for="result in results" :key="result.id" :id="result.id" :productImage="result.productImage" :productName="result.productName" :unitPrice="result.unitPrice" :cartonPrice="result.cartonPrice" :halfCartonPrice="result.halfCartonPrice"></my-item-card>
+            <my-item-card @productQty="addToCart" @itemToEdit="editProduct(result.id)" v-for="result in results" :key="result.id" :id="result.id" :productImage="result.productImage" :productName="result.productName" :unitPrice="result.unitPrice" :cartonPrice="result.cartonPrice" :halfCartonPrice="result.halfCartonPrice"></my-item-card>
         </ul>
     </div>
 </template>
@@ -19,6 +19,7 @@ export default {
             errorMessage: '',
             isLoading: true,
             productToEdit: '',
+            addedItems: []
         }
     },
     methods: {
@@ -52,10 +53,17 @@ export default {
         editProduct(object) {
             this.productToEdit = object
             this.$router.push('/edit/' + object)
+        },
+        addToCart(toAdd) {
+            this.addedItems.push(toAdd)
+
+            this.$emit('updateCart', this.addedItems)
         }
     },
     mounted() {
         this.loadProducts()
-    },    
+        this.$emit('clearCartContents')
+    },
+    emits: ['clearCartContents', 'updateCart']   
 }
 </script>
