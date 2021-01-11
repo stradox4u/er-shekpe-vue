@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container pb-5">
         <h2 class="pl-3 font-bold font-sans text-xl">Shopping Cart</h2>
         <ul>
             <my-cart-item v-for="cartContent in cartContents" :key="cartContent.id" :itemImage="cartContent.prodImg" :itemName="cartContent.prodName" :itemUnit="cartContent.unit" :itemQty="cartContent.qty" :itemProdPrice="cartContent.prodPrice" :itemId="cartContent.id" @removeItem="removeItem(cartContent.id)" @decrease="reduce(cartContent.id)" @increase="add(cartContent.id)" class="mx-3 mt-3 rounded shadow"></my-cart-item>

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container px-5 pb-5">
         <h2 class="font-sans font-bold text-xl">Create New Product</h2>
         <upload-image @imageDecoded="setImage" :progressPercent="progress"></upload-image>
         <hr class="pb-5">

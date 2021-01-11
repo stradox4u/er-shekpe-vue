@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container px-5 pb-5">
         <h2 class="font-sans font-bold text-xl pb-3">Edit {{ product.product_name }}</h2>
         <form @submit.prevent="submitEditedProduct" action="#">
             <my-base-input v-model="inputUnitPrice" label="unit-price" labelString="Unit Price: " inputType="number" :placeholderString="currencyFormat(product.unit_price)" stepValue="0.01"></my-base-input>

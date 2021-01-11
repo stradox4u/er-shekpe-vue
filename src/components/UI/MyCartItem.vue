@@ -1,23 +1,23 @@
 <template>
-    <div class="bg-gray-100 p-3 flex flex-row justify-between space-x-2">
-        <img :src="itemImage" alt="item picture" class="shadow h-28 rounded ml-1">
+    <div class="bg-gray-100 p-1 flex flex-row justify-between space-x-2">
+        <img :src="itemImage" alt="item picture" class="shadow h-8 rounded">
         <div>
-            <h3 class="font-sans font-bold">{{ itemName }}</h3>
-            <p class="italic font-sans">In Stock</p>
-            <p class="italic font-sans text-pink-800">Out of Stock</p>
-            <a @click="remove" href="#" class="pt-3">Remove <i class="far fa-trash-alt"></i></a>
+            <h3 class="font-sans font-bold text-sm">{{ itemName }}</h3>
+            <p class="italic font-sans text-xs">In Stock</p>
+            <p class="italic font-sans text-xs text-pink-800">Out of Stock</p>
+            <a @click="remove" href="#" class="pt-3 text-xs">Remove <i class="far fa-trash-alt"></i></a>
         </div>
         <div>
-            <p class="font-sans text-lg">Unit: {{ unitName }}</p>
+            <p class="font-sans text-sm font-bold">Unit: {{ unitName }}</p>
             <span class="space-x-0 inline-flex pt-3">
-                <p class="my-auto">Quantity:</p>
+                <p class="my-auto text-xs">Qty:</p>
                 <a @click="minus1(itemId)" href="#" class="my-auto focus:ring focus:border-gray-500 text-xs"><span class="bg-gray-100 p-2 rounded-l">-</span></a>
                 <span class="bg-gray-100 p-2 my-auto text-xs"> {{ itemQty }} </span>
                 <a @click="plus1(itemId)" href="#" class="my-auto focus:shadow text-xs"><span class="bg-gray-100 p-2 rounded-r">+</span></a>
             </span>
         </div>
         <div>
-            <p class="font-sans text-lg">Unit Price:</p>
+            <p class="font-sans text-sm">Unit Price:</p>
             <p class="font-sans text-base font-bold"> {{ currencyFormat((itemProdPrice)) }}</p>
             <p class="font-sans text-sm italic">x {{ itemQty }} pcs</p>
             <p class="font-sans text-base italic">Subtotal:  {{ currencyFormat(subTotal) }}</p>
