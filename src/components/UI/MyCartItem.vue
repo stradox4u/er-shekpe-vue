@@ -11,9 +11,9 @@
             <p class="font-sans text-lg">Unit: {{ unitName }}</p>
             <span class="space-x-0 inline-flex pt-3">
                 <p class="my-auto">Quantity:</p>
-                <a href="#" class="my-auto focus:ring focus:border-gray-500 text-xs"><span class="bg-gray-100 p-2 rounded-l">-</span></a>
+                <a @click="minus1(itemId)" href="#" class="my-auto focus:ring focus:border-gray-500 text-xs"><span class="bg-gray-100 p-2 rounded-l">-</span></a>
                 <span class="bg-gray-100 p-2 my-auto text-xs"> {{ itemQty }} </span>
-                <a href="#" class="my-auto focus:shadow text-xs"><span class="bg-gray-100 p-2 rounded-r">+</span></a>
+                <a @click="plus1(itemId)" href="#" class="my-auto focus:shadow text-xs"><span class="bg-gray-100 p-2 rounded-r">+</span></a>
             </span>
         </div>
         <div>
@@ -69,6 +69,13 @@ export default {
         currencyFormat(value) {
             return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'NGN', minimumFractionDigits: 2, currencyDisplay: 'code' }).format(value)
         },
-    }
+        minus1(id) {
+            this.$emit('decrease', id)
+        },
+        plus1(id) {
+            this.$emit('increase', id)
+        }
+    },
+    emits: ['decrease', 'increase']
 }
 </script>

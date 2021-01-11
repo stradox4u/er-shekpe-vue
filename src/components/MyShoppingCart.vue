@@ -2,7 +2,7 @@
     <div class="container">
         <h2 class="pl-3 font-bold font-sans text-xl">Shopping Cart</h2>
         <ul>
-            <my-cart-item v-for="cartContent in cartContents" :key="cartContent.id" :itemImage="cartContent.prodImg" :itemName="cartContent.prodName" :itemUnit="cartContent.unit" :itemQty="cartContent.qty" :itemProdPrice="cartContent.prodPrice" :itemId="cartContent.id" @removeItem="removeItem(cartContent.id)" class="mx-3 mt-3 rounded shadow"></my-cart-item>
+            <my-cart-item v-for="cartContent in cartContents" :key="cartContent.id" :itemImage="cartContent.prodImg" :itemName="cartContent.prodName" :itemUnit="cartContent.unit" :itemQty="cartContent.qty" :itemProdPrice="cartContent.prodPrice" :itemId="cartContent.id" @removeItem="removeItem(cartContent.id)" @decrease="reduce(cartContent.id)" @increase="add(cartContent.id)" class="mx-3 mt-3 rounded shadow"></my-cart-item>
         </ul>
         <div class="">
             <h3 class="font-serif font-bold text-lg text-right pr-3">Total:</h3>
@@ -56,6 +56,13 @@ export default {
         currencyFormat(value) {
             return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'NGN', minimumFractionDigits: 2, currencyDisplay: 'code' }).format(value)
         },
-    }
+        reduce(id) {
+            this.$emit('reduceItem', id)
+        },
+        add(id) {
+            this.$emit('addItem', id)
+        },
+    },
+    emits: ['removeItem', 'reduceItem', 'addItem']
 }
 </script>
