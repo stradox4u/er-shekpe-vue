@@ -29,8 +29,8 @@ export default {
     },
     methods: {
         getProductDetails(query) {
-            const cors = 'https://cors-anywhere.herokuapp.com/'
-            axios.get(cors + process.env.VUE_APP_SHORT_PRODUCTS_URL + '/' + query + '.json')
+            // const cors = 'https://cors-anywhere.herokuapp.com/'
+            axios.get(process.env.VUE_APP_SHORT_PRODUCTS_URL + '/' + query + '.json')
             .then((response) => {
                 this.product = response.data
                 console.log(this.product)
@@ -46,8 +46,8 @@ export default {
                 this.error = 'Sorry, you have one or more invalid fields. Please check again before submitting.'
                 
             } else {
-                const cors = 'https://cors-anywhere.herokuapp.com/'
-                axios.patch(cors + process.env.VUE_APP_SHORT_PRODUCTS_URL + '/' + this.id + '.json', {
+                // const cors = 'https://cors-anywhere.herokuapp.com/'
+                axios.patch(process.env.VUE_APP_SHORT_PRODUCTS_URL + '/' + this.id + '.json', {
                     unit_price: this.inputUnitPrice,
                     carton_price: this.inputCartonPrice,
                     half_carton_price: this.inputHalfCartonPrice

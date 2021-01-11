@@ -10,14 +10,9 @@ export default {
     name: 'MyNavBar',
     computed: {
         currentLocation: () => {
-            if(window.location.href.includes("create")){
-                return 'Create'
-            } else if(window.location.href.includes("edit")) {
-                return 'Edit'
-            } else if(window.location.href.includes("cart")) {
-                return 'Cart'
-            } else {
-                return 'Shop'
+            switch(this.$router.currentRoute._rawValue.path) {
+                case '/':
+                    return 'Shop'
             }
         }
     }
