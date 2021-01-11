@@ -11,7 +11,8 @@ export default {
   name: 'App',
   data() {
     return {
-      currentCart: []
+      currentCart: [],
+      currentLocation: ''
     }
   },
   components: {
@@ -35,8 +36,10 @@ export default {
     cartCount() {
       return this.currentCart.length
     },
-    currentLocation() {
-      return this.$router.currentRoute._rawValue.path
+  },
+  watch: {
+    $route () {
+      this.currentLocation = this.$router.currentRoute._rawValue.path
     }
   }
 }
