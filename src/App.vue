@@ -1,7 +1,7 @@
 <template>
   <div class="bg-yellow-100">
     <my-header :cartCount="cartCount"></my-header>
-    <my-nav-bar></my-nav-bar>
+    <my-nav-bar :location="currentLocation"></my-nav-bar>
     <router-view :cartContents="currentCart" @updateCart="updateCart" @removeItem="removeCartItem" @clearCartContents="clearCart"></router-view>
   </div>
 </template>
@@ -34,6 +34,9 @@ export default {
   computed: {
     cartCount() {
       return this.currentCart.length
+    },
+    currentLocation() {
+      return this.$router.currentRoute._rawValue.path
     }
   }
 }

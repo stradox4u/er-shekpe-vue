@@ -8,7 +8,8 @@
             <h3 class="font-serif font-bold text-lg text-right pr-3">Total:</h3>
             <p class="font-sans text-xl text-right pr-3"> {{ currencyFormat(parseFloat(totalPrice)) }}</p>
         </div>
-        <my-base-button @click="storePurchase" class="mt-3 mx-auto container shadow mb-5 block">Purchase Now</my-base-button>
+        <p v-if="cartContents.length === 0" class="text-center font-sans text-xl">Please add items to your cart to populate this page!</p>
+        <my-base-button v-else @click="storePurchase" class="mt-3 mx-auto container shadow mb-5 block">Purchase Now</my-base-button>
     </div>
 </template>
 
