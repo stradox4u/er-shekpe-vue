@@ -12,15 +12,15 @@
         <!-- Product Details -->
         <div class="flex flex-col">
             <div class="inline-flex space-x-4 float-left pb-2">
-                <h4 class="font-sans font-bold text-left pl-4">Unit Price: </h4><p>{{ currencyFormat(unitPrice) }}</p>
+                <h4 class="font-sans font-bold text-left pl-2">Unit Price: </h4><p>{{ currencyFormat(unitPrice) }}</p>
             </div>
             <br>
             <div class="inline-flex space-x-4 float-left pb-2">
-                <h4 class="font-sans font-bold text-left pl-4">Carton Price: </h4><p>{{ currencyFormat(cartonPrice) }}</p>
+                <h4 class="font-sans font-bold text-left pl-2">Carton Price: </h4><p>{{ currencyFormat(cartonPrice) }}</p>
             </div>
             <br>
             <div class="inline-flex space-x-4 float-left pb-2">
-                <h4 class="font-sans font-bold text-left pl-4">Half Carton Price: </h4><p>{{ currencyFormat(halfCartonPrice) }}</p>
+                <h4 class="font-sans font-bold text-left pl-2">Half Carton Price: </h4><p>{{ currencyFormat(halfCartonPrice) }}</p>
             </div>
         </div>
         <p class="font-sans italic clear-both text-center">In Stock</p>
@@ -30,7 +30,7 @@
             <form @submit.prevent="submitQty(id)" action="#">
                 <div class="flex space-x-2 mb-3">
                     <p class="my-auto">Quantity:</p>
-                    <input v-model="inputQty" type="number" name="quantity" class="pl-3 focus:outline-none">
+                    <input v-model="inputQty" type="number" name="quantity" class="pl-3 focus:outline-none w-16">
                 </div>
                 <div class="flex justify-between mb-3">
                     <select v-model="inputUnit" :name="productName + '-unit'" class="bg-green-900 text-white p-1 rounded focus:bg-gray-500">
@@ -38,7 +38,7 @@
                         <option value="cartons">Cartons</option>
                         <option value="half-carton">Half Carton</option>
                     </select>
-                    <my-base-button class="text-sm p-3 ml-2 shadow">Add To Cart</my-base-button>
+                    <my-base-button class="text-xs p-1 ml-2 mr-2 shadow">Add To Cart</my-base-button>
                 </div>
             </form>
         </div>
