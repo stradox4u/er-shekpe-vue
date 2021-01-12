@@ -1,7 +1,7 @@
 <template>
     <nav class="bg-green-900 text-white text-left pl-5 mb-5 flex justify-between">
-        <h3> {{ locationString }} </h3>
-        <router-link to="/create" class="mr-3 focus:ring">Create New Product</router-link>    
+        <h3 class="font-sans text-sm"> {{ locationString }} </h3>
+        <router-link to="/create" class="mr-3 focus:ring font-sans text-sm">Create New Product</router-link>    
     </nav>
 </template>
 
