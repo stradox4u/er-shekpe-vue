@@ -35,9 +35,9 @@ export default {
                         id: id,
                         productImage: response.data[id].product_image,
                         productName: response.data[id].product_name,
-                        unitPrice: response.data[id].unit_price,
-                        cartonPrice: response.data[id].carton_price,
-                        halfCartonPrice: response.data[id].half_carton_price
+                        unitPrice: parseFloat(response.data[id].unit_price),
+                        cartonPrice: parseFloat(response.data[id].carton_price),
+                        halfCartonPrice: parseFloat(response.data[id].half_carton_price)
                     })
                 }
                 this.results = results
