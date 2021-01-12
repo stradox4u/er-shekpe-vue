@@ -47,11 +47,12 @@ export default {
             axios.post(purchasesURL, purchase)
             .then(function(response) {
                 console.log(response)
+                this.$router.push('/')
             })
             .catch(function(error) {
                 console.log(error.message)
+                this.$router.push('/')
             })
-            this.$router.push('/')
         },
         currencyFormat(value) {
             return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'NGN', minimumFractionDigits: 2, currencyDisplay: 'code' }).format(value)

@@ -53,11 +53,12 @@ export default {
             })
             .then(function(response) {
                 console.log(response)
+                this.$router.push('/')
             })
             .catch(function(error) {
                 console.log(error.message)
+                this.$router.push('/')
             })
-            this.$router.push('/')
         }
     },
     computed: {

@@ -59,6 +59,7 @@ export default {
                 .catch((error) => {
                     this.error = error
                     console.log(error)
+                    this.$router.push('/')
                 })
             }
             
