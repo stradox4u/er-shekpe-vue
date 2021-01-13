@@ -68,14 +68,9 @@ export default {
             return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'NGN', minimumFractionDigits: 2, currencyDisplay: 'code' }).format(value)
         },
     },
-    mounted() {
-        const urlArray = window.location.href.split('-')
-        const idArray = urlArray.slice(1)
-        if(idArray.length > 1) {
-            this.id = '-' + idArray.join('-')
-        } else {
-            this.id = '-' + idArray[0]
-        }
+    created() {
+        const id = this.$route.params.id
+        this.id = id
         this.getProductDetails(this.id)
     }
 
