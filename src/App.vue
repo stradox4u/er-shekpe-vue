@@ -2,6 +2,7 @@
   <div class="bg-yellow-100">
     <my-header :cartCount="cartCount"></my-header>
     <my-nav-bar :location="currentLocation"></my-nav-bar>
+    <my-spinner v-if="isLoading"></my-spinner>
     <router-view
       :cartContents="currentCart"
       @updateCart="updateCart"
@@ -10,20 +11,25 @@
       @reduceItem="decrement"
       @addItem="increment"
       @productEdit="editProduct"
+      @apiCallMade="loadSpinner"
+      @apiCallCompleted="removeSpinner"
     ></router-view>
   </div>
 </template>
 
 <script>
+import MySpinner from './components/UI/MySpinner.vue'
+
 export default {
   name: "App",
   data() {
     return {
       currentCart: [],
       currentLocation: "",
+      isLoading: false
     };
   },
-  components: {},
+  components: {MySpinner},
   methods: {
     editProduct(id, product) {
       this.$router.push({
@@ -64,6 +70,12 @@ export default {
       }
       itemToDecrement.qty--;
     },
+    loadSpinner() {
+      this.isLoading = true
+    },
+    removeSpinner() {
+      this.isLoading = false
+    }
   },
   computed: {
     cartCount() {

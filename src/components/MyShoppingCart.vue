@@ -43,13 +43,15 @@ export default {
                 purchased_items: this.cartContents,
                 totalPurchasePrice: this.totalPrice
             }
+            this.$emit('apiCallMade')
             const purchasesURL = process.env.VUE_APP_PURCHASES_URL
             axios.post(purchasesURL, purchase)
-            .then(function(response) {
+            .then((response) => {
                 console.log(response)
+                this.$emit('apiCallCompleted')
                 this.$router.push('/')
             })
-            .catch(function(error) {
+            .catch((error) => {
                 console.log(error.message)
                 this.$router.push('/')
             })
@@ -64,6 +66,6 @@ export default {
             this.$emit('addItem', id)
         },
     },
-    emits: ['removeItem', 'reduceItem', 'addItem']
+    emits: ['removeItem', 'reduceItem', 'addItem', 'apiCallMade', 'apiCallCompleted']
 }
 </script>

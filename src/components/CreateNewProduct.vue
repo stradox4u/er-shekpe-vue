@@ -39,6 +39,7 @@ export default {
             this.image = rawImg
         },
         storeInfo() {
+            this.$emit('apiCallMade')
             // Check if any of the inputs is empty
             if(this.productName === '' || this.unitPrice === 0 || this.cartonPrice === 0 || this.halfCartonPrice === 0) {
                 this.invalidInput = true
@@ -56,11 +57,12 @@ export default {
                 half_carton_price: this.halfCartonPrice,
                 product_image: this.image
             })
-            .then(function(response) {
+            .then((response) => {
+                this.$emit('apiCallCompleted')
                 console.log(response)
                 this.$router.push('/')
             })
-            .catch(function(error) {
+            .catch((error) => {
                 console.log(error.message)
                 this.$router.push('/')
             })
@@ -74,6 +76,7 @@ export default {
                 return 100
             }
         }
-    }
+    },
+    emits: ['apiCallMade', 'apiCallCompleted'],
 }
 </script>

@@ -29,6 +29,7 @@ export default {
     props: ['name', 'unit_price', 'carton_price', 'half_carton_price'],
     methods: {
         submitEditedProduct() {
+            this.$emit('apiCallMade')
             // Make api call to update product in firebase realtime database
             if(this.inputUnitPrice === 0 || this.inputCartonPrice === 0 || this.inputHalfCartonPrice === 0) {
                 this.error = 'Sorry, you have one or more invalid fields. Please check again before submitting.'
@@ -42,6 +43,7 @@ export default {
                 })
                 .then((response) => {
                     console.log(response)
+                    this.$emit('apiCallCompleted')
                     this.$router.push('/')
                 })
                 .catch((error) => {
@@ -56,5 +58,10 @@ export default {
             return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'NGN', minimumFractionDigits: 2, currencyDisplay: 'code' }).format(value)
         },
     },
+    beforeMount() {
+        this.id = this.$route.params.id
+        // console.log(this.id)
+    },
+    emits: ['apiCallMade', 'apiCallCompleted'],
 }
 </script>
