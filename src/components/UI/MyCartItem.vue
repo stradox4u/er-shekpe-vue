@@ -1,12 +1,18 @@
 <template>
     <div class="bg-gray-100 p-1 flex flex-row justify-between space-x-2">
+
+        <!-- Product Image -->
         <img :src="itemImage" alt="item picture" class="shadow h-8 rounded">
+
+        <!-- Product Details & Stock & Remove From Cart Button -->
         <div>
             <h3 class="font-sans font-bold text-sm">{{ itemName }}</h3>
             <p class="italic font-sans text-xs">In Stock</p>
             <p class="italic font-sans text-xs text-pink-800">Out of Stock</p>
             <a @click="remove" href="#" class="pt-3 text-xs">Remove <i class="far fa-trash-alt"></i></a>
         </div>
+
+        <!-- Quantity Details & add/reduce Buttons -->
         <div>
             <p class="font-sans text-sm font-bold">Unit: {{ unitName }}</p>
             <span class="space-x-0 inline-flex pt-3">
@@ -16,6 +22,8 @@
                 <a @click="plus1(itemId)" href="#" class="my-auto focus:shadow text-xs"><span class="bg-gray-100 p-2 rounded-r">+</span></a>
             </span>
         </div>
+
+        <!-- Price Details -->
         <div>
             <p class="font-sans text-sm">Unit Price:</p>
             <p class="font-sans text-base font-bold"> {{ currencyFormat((itemProdPrice)) }}</p>
@@ -56,23 +64,28 @@ export default {
     },
     computed: {
         subTotal() {
+            // calculate subtotal for item
             return this.itemQty * this.itemProdPrice
         },
         unitName() {
+            // Capitalise the product name
             return this.itemUnit.charAt(0).toUpperCase() + this.itemUnit.slice(1)
         },
     },
     methods: {
         remove() {
+            // Begin emission sequence to remove product from cart array
             this.$emit('removeItem', this.itemId)
         },
         currencyFormat(value) {
             return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'NGN', minimumFractionDigits: 2, currencyDisplay: 'code' }).format(value)
         },
         minus1(id) {
+            // Begin emission sequence to reduce the item qty from cart
             this.$emit('decrease', id)
         },
         plus1(id) {
+            // Begin emission sequence to increase the item qty in cart
             this.$emit('increase', id)
         }
     },

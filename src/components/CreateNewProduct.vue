@@ -10,6 +10,8 @@
             <my-base-input v-model="halfCartonPrice" label="half-carton-price" labelString="Half Carton Price: " inputType="number" placeholderString="&#8358; 0.00" :stepValue="0.01"></my-base-input>
             <my-base-button class="block my-3 container shadow">Submit</my-base-button>
         </form>
+        <!-- Error to show if there is an invalid input -->
+        <p v-if="invalidInput" class="block mx-auto font-sans text-sm">One or more of your inputs is invalid. Please check again before submitting.</p>
     </div>
 </template>
 
@@ -37,12 +39,15 @@ export default {
             this.image = rawImg
         },
         storeInfo() {
+            // Check if any of the inputs is empty
             if(this.productName === '' || this.unitPrice === 0 || this.cartonPrice === 0 || this.halfCartonPrice === 0) {
                 this.invalidInput = true
                 return
             } else {
                 this.invalidInput = false
             }
+
+            // Put product to firebase realtime database
             const productsURL = process.env.VUE_APP_PRODUCTS_URL
             axios.post(productsURL, {
                 product_name: this.productName,

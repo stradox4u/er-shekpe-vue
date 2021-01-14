@@ -2,56 +2,78 @@
   <div class="bg-yellow-100">
     <my-header :cartCount="cartCount"></my-header>
     <my-nav-bar :location="currentLocation"></my-nav-bar>
-    <router-view :cartContents="currentCart" @updateCart="updateCart" @removeItem="removeCartItem" @clearCartContents="clearCart" @reduceItem="decrement" @addItem="increment"></router-view>
+    <router-view
+      :cartContents="currentCart"
+      @updateCart="updateCart"
+      @removeItem="removeCartItem"
+      @clearCartContents="clearCart"
+      @reduceItem="decrement"
+      @addItem="increment"
+      @productEdit="editProduct"
+    ></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
       currentCart: [],
-      currentLocation: ''
-    }
+      currentLocation: "",
+    };
   },
-  components: {
-
-  },
+  components: {},
   methods: {
+    editProduct(id, product) {
+      this.$router.push({
+        name: 'edit',
+        params: {id: id},
+        query: {
+          name: product.productName,
+          unit_price: (product.unitPrice),
+          carton_price: product.cartonPrice,
+          half_carton_price: product.halfCartonPrice
+        }
+      })
+    },
     updateCart(addedItems) {
-      this.currentCart = addedItems
+      this.currentCart = addedItems;
       // console.log(this.currentCart)
     },
     removeCartItem(id) {
-      let itemToRemove = this.currentCart.find(element => element.id == id)
-      let indexToRemove = this.currentCart.indexOf(itemToRemove)
-      this.currentCart.splice(indexToRemove, 1)
+      let itemToRemove = this.currentCart.find((element) => element.id == id);
+      let indexToRemove = this.currentCart.indexOf(itemToRemove);
+      this.currentCart.splice(indexToRemove, 1);
     },
     clearCart() {
-      this.currentCart = []
+      this.currentCart = [];
     },
     increment(id) {
-      let itemToIncrement = this.currentCart.find(element => element.id == id)
-      itemToIncrement.qty++
+      let itemToIncrement = this.currentCart.find(
+        (element) => element.id == id
+      );
+      itemToIncrement.qty++;
     },
     decrement(id) {
-      let itemToDecrement = this.currentCart.find(element => element.id == id)
-      if(itemToDecrement.qty == 1) {
-        this.removeCartItem(id)
+      let itemToDecrement = this.currentCart.find(
+        (element) => element.id == id
+      );
+      if (itemToDecrement.qty == 1) {
+        this.removeCartItem(id);
       }
-      itemToDecrement.qty--
-    }
+      itemToDecrement.qty--;
+    },
   },
   computed: {
     cartCount() {
-      return this.currentCart.length
+      return this.currentCart.length;
     },
   },
   watch: {
-    $route () {
-      this.currentLocation = this.$router.currentRoute._rawValue.path
-    }
-  }
-}
+    $route() {
+      this.currentLocation = this.$router.currentRoute._rawValue.path;
+    },
+  },
+};
 </script>

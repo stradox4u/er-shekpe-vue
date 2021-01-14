@@ -13,6 +13,7 @@ export default {
     name: 'MyCartButton',
     methods: {
         cartClicked() {
+            // Begin emission sequence that should lead you to the cart page
             this.$emit('cartClicked')
         }
     },

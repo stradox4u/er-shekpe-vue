@@ -1,19 +1,23 @@
 <template>
     <div>
+
+        <!-- File Input -->
         <div class="pb-3">
             <label class="pr-3" for="image">Upload Product Image</label>
             <input type="file" name="image" accept="image/*" @change="previewImage">
         </div>
+
+        <!-- Progress Bar -->
         <div class="shadow w-full bg-gray-100">
             <div class="bg-yellow-500 text-xs leading-none py-1 text-center" :style="{ width: progressPercent + '%' }">{{ progressPercent }}%</div>
         </div>
+
+        <!-- Upload Button -->
         <my-base-button class="my-3 mx-auto block" @click="onUpload">Upload</my-base-button>
     </div>
 </template>
 
 <script>
-// import firebase from 'firebase'
-
 export default {
     name: 'UploadImage',
     data() {
@@ -27,6 +31,7 @@ export default {
             this.imageData = event.target.files[0]
         },
         onUpload() {
+            // Convert File to base64 string & emit
            const file = this.imageData
            const reader = new FileReader()
 

@@ -51,8 +51,8 @@ export default {
             })
         },
         editProduct(object) {
-            this.productToEdit = object
-            this.$router.push('/edit/' + object)
+            const objectToEdit = this.results.find(element => element.id === object)
+            this.$emit('productEdit', object, objectToEdit)
         },
         addToCart(toAdd) {
             this.addedItems.push(toAdd)
@@ -64,6 +64,6 @@ export default {
         this.loadProducts()
         this.$emit('clearCartContents')
     },
-    emits: ['clearCartContents', 'updateCart']   
+    emits: ['clearCartContents', 'updateCart', 'productEdit']   
 }
 </script>
