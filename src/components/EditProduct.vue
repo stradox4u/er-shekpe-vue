@@ -29,13 +29,13 @@ export default {
     props: ['name', 'unit_price', 'carton_price', 'half_carton_price'],
     methods: {
         submitEditedProduct() {
-            this.$emit('apiCallMade')
             // Make api call to update product in firebase realtime database
             if(this.inputUnitPrice === 0 || this.inputCartonPrice === 0 || this.inputHalfCartonPrice === 0) {
                 this.error = 'Sorry, you have one or more invalid fields. Please check again before submitting.'
                 return
                 
             } else {
+                this.$emit('apiCallMade')
                 const cors = 'https://cors-anywhere.herokuapp.com/'
                 const credentials = process.env.VUE_APP_CREDENTIALS
                 axios.patch(cors + process.env.VUE_APP_SHORT_PRODUCTS_URL + '/' + this.id + '.json?auth=' + credentials, {

@@ -39,7 +39,6 @@ export default {
             this.image = rawImg
         },
         storeInfo() {
-            this.$emit('apiCallMade')
             // Check if any of the inputs is empty
             if(this.productName === '' || this.unitPrice === 0 || this.cartonPrice === 0 || this.halfCartonPrice === 0) {
                 this.invalidInput = true
@@ -49,6 +48,7 @@ export default {
             }
 
             // Put product to firebase realtime database
+            this.$emit('apiCallMade')
             const productsURL = process.env.VUE_APP_PRODUCTS_URL
             const credentials = process.env.VUE_APP_CREDENTIALS
             axios.post(productsURL + '?auth=' + credentials, {
