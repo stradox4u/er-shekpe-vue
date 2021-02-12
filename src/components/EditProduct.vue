@@ -36,7 +36,8 @@ export default {
                 
             } else {
                 const cors = 'https://cors-anywhere.herokuapp.com/'
-                axios.patch(cors + process.env.VUE_APP_SHORT_PRODUCTS_URL + '/' + this.id + '.json', {
+                const credentials = process.env.VUE_APP_CREDENTIALS
+                axios.patch(cors + process.env.VUE_APP_SHORT_PRODUCTS_URL + '/' + this.id + '.json' + '?auth=' + credentials, {
                     unit_price: this.inputUnitPrice,
                     carton_price: this.inputCartonPrice,
                     half_carton_price: this.inputHalfCartonPrice

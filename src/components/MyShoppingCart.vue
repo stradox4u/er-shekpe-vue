@@ -38,6 +38,7 @@ export default {
             this.$emit('removeItem', id)
         },
         storePurchase() {
+            const credentials = process.env.VUE_APP_CREDENTIALS
             const purchase = {
                 id: new Date().getTime(),
                 purchased_items: this.cartContents,
@@ -45,7 +46,7 @@ export default {
             }
             this.$emit('apiCallMade')
             const purchasesURL = process.env.VUE_APP_PURCHASES_URL
-            axios.post(purchasesURL, purchase)
+            axios.post(purchasesURL + '?auth=' + credentials, purchase)
             .then((response) => {
                 console.log(response)
                 this.$emit('apiCallCompleted')

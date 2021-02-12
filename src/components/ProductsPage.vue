@@ -25,7 +25,8 @@ export default {
     methods: {
         loadProducts() {
             const productsURL = process.env.VUE_APP_PRODUCTS_URL
-            axios.get(productsURL)
+            const credentials = process.env.VUE_APP_CREDENTIALS
+            axios.get(productsURL + '?auth=' + credentials)
             .then( (response) => {
                 // Handle Success
                 const results = []
