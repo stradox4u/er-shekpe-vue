@@ -50,7 +50,8 @@ export default {
 
             // Put product to firebase realtime database
             const productsURL = process.env.VUE_APP_PRODUCTS_URL
-            axios.post(productsURL, {
+            const credentials = process.env.VUE_APP_CREDENTIALS
+            axios.post(productsURL + '?auth=' + credentials, {
                 product_name: this.productName,
                 unit_price: this.unitPrice,
                 carton_price: this.cartonPrice,
