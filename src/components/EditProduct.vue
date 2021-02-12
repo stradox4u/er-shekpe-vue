@@ -33,6 +33,7 @@ export default {
             // Make api call to update product in firebase realtime database
             if(this.inputUnitPrice === 0 || this.inputCartonPrice === 0 || this.inputHalfCartonPrice === 0) {
                 this.error = 'Sorry, you have one or more invalid fields. Please check again before submitting.'
+                return
                 
             } else {
                 const cors = 'https://cors-anywhere.herokuapp.com/'
