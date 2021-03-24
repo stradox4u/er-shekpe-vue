@@ -74,6 +74,10 @@ export default {
                     this.latitude = position.coords.latitude
                     this.longitude = position.coords.longitude
                     this.accuracy = position.coords.accuracy
+                }, (error) => {
+                    console.log(error)
+                }, {
+                    enableHighAccuracy: true,
                 })
             }
         },
