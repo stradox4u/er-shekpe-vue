@@ -6,11 +6,6 @@
             <my-item-card @productQty="addToCart" @itemToEdit="editProduct(result.id)" v-for="result in results" :key="result.id" :id="result.id" :productImage="result.productImage" :productName="result.productName" :unitPrice="result.unitPrice" :cartonPrice="result.cartonPrice" :halfCartonPrice="result.halfCartonPrice"></my-item-card>
         </ul>
     </div>
-    <div>
-        <h3>Latitude:</h3><p>{{ latitude }}</p>
-        <h3>Longitude:</h3><p>{{ longitude }}</p>
-        <h3>Accuracy:</h3><p>{{ accuracy }}</p>
-    </div>
 </template>
 
 <script>
@@ -25,9 +20,6 @@ export default {
             isLoading: true,
             productToEdit: '',
             addedItems: [],
-            latitude: 0,
-            longitude: 0,
-            accuracy: 0,
         }
     },
     methods: {
@@ -67,25 +59,11 @@ export default {
             this.addedItems.push(toAdd)
 
             this.$emit('updateCart', this.addedItems)
-        },
-        getPosition() {
-            if(navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    this.latitude = position.coords.latitude
-                    this.longitude = position.coords.longitude
-                    this.accuracy = position.coords.accuracy
-                }, (error) => {
-                    console.log(error)
-                }, {
-                    enableHighAccuracy: true,
-                })
-            }
-        },
+        }
     },
     mounted() {
         this.loadProducts()
         this.$emit('clearCartContents')
-        this.getPosition()
     },
     emits: ['clearCartContents', 'updateCart', 'productEdit']   
 }
